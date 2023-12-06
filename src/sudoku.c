@@ -5,7 +5,6 @@
 #include <stdlib.h>
 
 #include "hidden_singles.h"
-#include "naked_pairs.h"
 
 int main(int argc, char **argv)
 {
