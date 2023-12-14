@@ -1,0 +1,33 @@
+int find_hidden_single_values(Cell **p_cells, int *hidden_single_values)
+{
+    int num_out = 0;
+
+    int candidate_counter[BOARD_SIZE];
+
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        candidate_counter[i] = 0;
+    }
+
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        if (p_cells[i]->num_candidates > 1)
+        {
+            int *candidates = get_candidates(p_cells[i]);
+            for (int j = 0; j < p_cells[i]->num_candidates; j++)
+            {
+                candidate_counter[candidates[j] - 1]++;
+            }
+            free(candidates);
+        }
+    }
+
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        if (candidate_counter[i] == 1)
+        {
+            hidden_single_values[num_out++] = i + 1;
+        }
+    }
+    return num_out;
+}

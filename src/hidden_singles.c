@@ -5,32 +5,26 @@
 int find_hidden_single_values(Cell **p_cells, int *hidden_single_values)
 {
     int num_out = 0;
+    int candidate_counter[BOARD_SIZE] = {0};
 
-    int candidate_counter[BOARD_SIZE];
-
-    for (int i = 0; i < BOARD_SIZE; i++)
+    for (Cell **p_cell = p_cells; p_cell < p_cells + BOARD_SIZE; p_cell++)
     {
-        candidate_counter[i] = 0;
-    }
-
-    for (int i = 0; i < BOARD_SIZE; i++)
-    {
-        if (p_cells[i]->num_candidates > 1)
+        if ((*p_cell)->num_candidates > 1)
         {
-            int *candidates = get_candidates(p_cells[i]);
-            for (int j = 0; j < p_cells[i]->num_candidates; j++)
+            int *candidates = get_candidates(*p_cell);
+            for (int *p_candidate = candidates; p_candidate < candidates + (*p_cell)->num_candidates; p_candidate++)
             {
-                candidate_counter[candidates[j] - 1]++;
+                candidate_counter[*p_candidate - 1]++;
             }
             free(candidates);
         }
     }
 
-    for (int i = 0; i < BOARD_SIZE; i++)
+    for (int *p_counter = candidate_counter; p_counter < candidate_counter + BOARD_SIZE; p_counter++)
     {
-        if (candidate_counter[i] == 1)
+        if (*p_counter == 1)
         {
-            hidden_single_values[num_out++] = i + 1;
+            hidden_single_values[num_out++] = (p_counter - candidate_counter) + 1;
         }
     }
     return num_out;
