@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 
     Cell **p_solved_cells = board->solved_cells;
     int solved_counter = board->solved_counter;
+    int naked = 0;
     while (board->solved_counter < BOARD_SIZE * BOARD_SIZE)
     {
         solved_counter = check_solved_cells(board, &p_solved_cells);
@@ -38,6 +39,11 @@ int main(int argc, char **argv)
         }
         solved_counter = naked_pairs(board);
         if (solved_counter)
+        {
+            printf("Naked pairs: %d\n", solved_counter);
+            naked++;
+        }
+        if (naked > 1)
         {
             printf("Naked pairs: %d\n", solved_counter);
             break;

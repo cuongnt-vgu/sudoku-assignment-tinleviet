@@ -1,5 +1,6 @@
 #include "naked_pairs.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 
 void find_naked_pairs(Cell **p_cells, int *p_counter)
@@ -18,13 +19,21 @@ void find_naked_pairs(Cell **p_cells, int *p_counter)
                     {
                         for (int k = 0; k < BOARD_SIZE; k++)
                         {
-                            if ((k != i) && (k != j))
+                            if ((k != i) && (k != j) && (p_cells[k]->num_candidates > 1))
                             {
-                                unset_candidate(p_cells[k], candidates_1[0]);
-                                unset_candidate(p_cells[k], candidates_1[1]);
+                                if (is_candidate(p_cells[k], candidates_1[0]))
+                                {
+                                    unset_candidate(p_cells[k], candidates_1[0]);
+                                    (*p_counter)++;
+                                }
+                                if (is_candidate(p_cells[k], candidates_1[1]))
+                                {
+                                    unset_candidate(p_cells[k], candidates_1[1]);
+                                    (*p_counter)++;
+                                }
                             }
                         }
-                        (*p_counter)++;
+                        
                     }
                     free(candidates_1);
                     free(candidates_2);
@@ -45,6 +54,6 @@ int naked_pairs(SudokuBoard *p_board)
         find_naked_pairs(p_board->p_cols[i], &naked_counter);
         find_naked_pairs(p_board->p_boxes[i], &naked_counter);
     }
-
+    printf("Naked pairs: %d\n", naked_counter);
     return naked_counter;
 }
