@@ -1,47 +1,50 @@
 #include "naked_pairs.h"
+#include <stdlib.h>
 
-int naked_pairs(SudokuBoard *p_board)
+
+void find_naked_pairs(Cell **p_cells, int *p_counter)
 {
-    int changes = 0;
-
     for (int i = 0; i < BOARD_SIZE; i++)
     {
-        for (int j = 0; j < BOARD_SIZE; j++)
+        if (p_cells[i]->num_candidates == 2)
         {
-            Cell *cell = &p_board->data[i][j];
-            if (cell->num_candidates == 2)
+            for (int j = i + 1; j < BOARD_SIZE; j++)
             {
-                for (int k = 0; k < BOARD_SIZE; k++)
+                if (p_cells[j]->num_candidates == 2)
                 {
-                    if (k != j)
+                    int *candidates_1 = get_candidates(p_cells[i]);
+                    int *candidates_2 = get_candidates(p_cells[j]);
+                    if ((candidates_1[0] == candidates_2[0]) && (candidates_1[1] == candidates_2[1]))
                     {
-                        Cell *other_cell = &p_board->data[i][k];
-                        if (other_cell->num_candidates == 2 && 
-                            is_candidate(cell, other_cell->candidates[0]) && 
-                            is_candidate(cell, other_cell->candidates[1]))
+                        for (int k = 0; k < BOARD_SIZE; k++)
                         {
-                            for (int l = 0; l < BOARD_SIZE; l++)
+                            if ((k != i) && (k != j))
                             {
-                                if (l != j && l != k)
-                                {
-                                    Cell *remove_cell = &p_board->data[i][l];
-                                    if (is_candidate(remove_cell, cell->candidates[0]))
-                                    {
-                                        unset_candidate(remove_cell, cell->candidates[0]);
-                                        changes++;
-                                    }
-                                    if (is_candidate(remove_cell, cell->candidates[1]))
-                                    {
-                                        unset_candidate(remove_cell, cell->candidates[1]);
-                                        changes++;
-                                    }
-                                }
+                                unset_candidate(p_cells[k], candidates_1[0]);
+                                unset_candidate(p_cells[k], candidates_1[1]);
                             }
                         }
+                        (*p_counter)++;
                     }
+                    free(candidates_1);
+                    free(candidates_2);
+                
                 }
             }
         }
     }
-    return changes;
+}
+
+int naked_pairs(SudokuBoard *p_board)
+{
+    int naked_counter = 0;
+
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        find_naked_pairs(p_board->p_rows[i], &naked_counter);
+        find_naked_pairs(p_board->p_cols[i], &naked_counter);
+        find_naked_pairs(p_board->p_boxes[i], &naked_counter);
+    }
+
+    return naked_counter;
 }
