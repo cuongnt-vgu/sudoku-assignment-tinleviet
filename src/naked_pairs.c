@@ -1,9 +1,21 @@
 #include "naked_pairs.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
+bool is_in_list_naked_pairs(NakedPair *p_array, Cell *p)
+{
+    for (int i = 0; i < BOARD_SIZE*BOARD_SIZE; i++)
+    {
+        if ((p_array[i].cell1 == p) || (p_array[i].cell2 == p))
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
-void find_naked_pairs(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo *p_unset_array)
+void find_naked_pairs(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo *p_unset_array, NakedPair *p_naked_pairs)
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {
@@ -19,7 +31,6 @@ void find_naked_pairs(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo *p
                     {
                         for (int k = 0; k < BOARD_SIZE; k++)
                         {
-                            int action = 0;
                             if ((k != i) && (k != j) && (p_cells[k]->num_candidates > 1))
                             {
                                 if (is_candidate(p_cells[k], candidates_1[0]) || is_candidate(p_cells[k], candidates_1[1]))
@@ -28,12 +39,13 @@ void find_naked_pairs(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo *p
                                     p_unset_array[*p_unset].candidate1 = candidates_1[0];
                                     p_unset_array[*p_unset].candidate2 = candidates_1[1];
                                     (*p_unset)++;
-                                    action++;
                                 }
                             }
-                            if (action > 0){
+                            if (!is_in_list_naked_pairs(p_naked_pairs, p_cells[i]))
+                            {
+                                p_naked_pairs[*p_counter].cell1 = p_cells[i];
+                                p_naked_pairs[*p_counter].cell2 = p_cells[j];
                                 (*p_counter)++;
-
                             }
                         }
                         
@@ -49,15 +61,16 @@ void find_naked_pairs(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo *p
 
 int naked_pairs(SudokuBoard *p_board)
 {
+    NakedPair naked_pairs[BOARD_SIZE * BOARD_SIZE];
     int naked_counter = 0;
     UnsetInfo unset_array[BOARD_SIZE * BOARD_SIZE];
     int unset_counter = 0;
 
     for (int i = 0; i < BOARD_SIZE; i++)
     {
-        find_naked_pairs(p_board->p_rows[i], &naked_counter, &unset_counter, unset_array);
-        find_naked_pairs(p_board->p_cols[i], &naked_counter, &unset_counter, unset_array);
-        find_naked_pairs(p_board->p_boxes[i], &naked_counter, &unset_counter, unset_array);
+        find_naked_pairs(p_board->p_rows[i], &naked_counter, &unset_counter, unset_array, naked_pairs);
+        find_naked_pairs(p_board->p_cols[i], &naked_counter, &unset_counter, unset_array, naked_pairs);
+        find_naked_pairs(p_board->p_boxes[i], &naked_counter, &unset_counter, unset_array, naked_pairs);
     }
 
     for (int i = 0; i < unset_counter; i++)
