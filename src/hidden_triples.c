@@ -69,9 +69,9 @@ void find_hidden_triples(Cell **p_cells, HiddenTriples *p_hidden_triples, int *p
         {
             for (int k = j+1; k < triple_sets_count; k++)
             {
-                int values[3] = {triple_sets[i], triple_sets[j], triple_sets[k]};
+                int set[3] = {triple_sets[i], triple_sets[j], triple_sets[k]};
                 int indices[BOARD_SIZE];
-                if (is_hidden_triples(p_cells, values, indices))
+                if (is_hidden_triples(p_cells, set, indices))
                 {
                     if (p_cells[indices[0]]->num_candidates <=3 || p_cells[indices[1]]->num_candidates <=3 || p_cells[indices[2]]->num_candidates <=3) continue;
                     if(!is_in_list_hidden_triples(p_hidden_triples, *p_counter, p_cells[indices[0]], p_cells[indices[1]], p_cells[indices[2]]))
@@ -79,9 +79,9 @@ void find_hidden_triples(Cell **p_cells, HiddenTriples *p_hidden_triples, int *p
                         p_hidden_triples[*p_counter].cell1 = p_cells[indices[0]];
                         p_hidden_triples[*p_counter].cell2 = p_cells[indices[1]];
                         p_hidden_triples[*p_counter].cell3 = p_cells[indices[2]];
-                        p_hidden_triples[*p_counter].num_1 = values[0];
-                        p_hidden_triples[*p_counter].num_2 = values[1];
-                        p_hidden_triples[*p_counter].num_3 = values[2];
+                        p_hidden_triples[*p_counter].num_1 = set[0];
+                        p_hidden_triples[*p_counter].num_2 = set[1];
+                        p_hidden_triples[*p_counter].num_3 = set[2];
                         (*p_counter)++;
                     }
                 }
