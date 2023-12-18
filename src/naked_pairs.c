@@ -74,16 +74,16 @@ int naked_pairs(SudokuBoard *p_board)
     }
 
     for (int i = 0; i < unset_counter; i++)
-{
-    if (is_candidate(unset_array[i].cell, unset_array[i].candidate1))
     {
-        unset_candidate(unset_array[i].cell, unset_array[i].candidate1);
+        if (is_candidate(unset_array[i].cell, unset_array[i].candidate1))
+        {
+            unset_candidate(unset_array[i].cell, unset_array[i].candidate1);
+        }
+        if (is_candidate(unset_array[i].cell, unset_array[i].candidate2))
+        {
+            unset_candidate(unset_array[i].cell, unset_array[i].candidate2);
+        }
     }
-    if (is_candidate(unset_array[i].cell, unset_array[i].candidate2))
-    {
-        unset_candidate(unset_array[i].cell, unset_array[i].candidate2);
-    }
-}
     printf("Naked pairs: %d\n", naked_counter);
     return naked_counter;
 }
