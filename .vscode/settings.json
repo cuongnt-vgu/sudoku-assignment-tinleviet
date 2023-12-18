@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "naked_pairs.h": "c"
+        "naked_pairs.h": "c",
+        "hidden_triples.h": "c"
     }
 }

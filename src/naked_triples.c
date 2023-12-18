@@ -27,11 +27,11 @@ void find_naked_triples(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo_
 {
     int stored_candidates[3] = {0};
     int diff_count = 0;
-    for (int i = 1; i <= BOARD_SIZE; i++){
+    for (int i = 1; i <= BOARD_SIZE - 2; i++){
         stored_candidates[0] = i;
-        for (int j = 1; j <= BOARD_SIZE; j++){
+        for (int j = i + 1; j <= BOARD_SIZE - 1; j++){
             stored_candidates[1] = j;
-            for (int k = 1; k <= BOARD_SIZE; k++){
+            for (int k = j + 1; k <= BOARD_SIZE; k++){
                 stored_candidates[2] = k;
                 for (int m = 0; m < BOARD_SIZE; m++){
                     if (p_cells[m]->num_candidates > 1){
