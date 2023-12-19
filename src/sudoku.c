@@ -7,6 +7,8 @@
 #include "hidden_singles.h"
 #include "naked_pairs.h"
 #include "naked_triples.h"
+#include "hidden_pairs.h"
+#include "hidden_triples.h"
 
 int main(int argc, char **argv)
 {
@@ -47,6 +49,16 @@ int main(int argc, char **argv)
         if (solved_counter)
         {
             printf("Naked triples: %d\n", solved_counter);
+        }
+        solved_counter = hidden_pairs(board);
+        if (solved_counter)
+        {
+            printf("Hidden pairs: %d\n", solved_counter);
+        }
+        solved_counter = hidden_triples(board);
+        if (solved_counter)
+        {
+            printf("Hidden triples: %d\n", solved_counter);
         }
 
     }
