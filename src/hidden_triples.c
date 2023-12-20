@@ -73,7 +73,7 @@ void find_hidden_triples(Cell **p_cells, HiddenTriples *p_hidden_triples, int *p
                 int indices[BOARD_SIZE];
                 if (is_hidden_triples(p_cells, set, indices))
                 {
-                    if (p_cells[indices[0]]->num_candidates <=3 || p_cells[indices[1]]->num_candidates <=3 || p_cells[indices[2]]->num_candidates <=3) continue;
+                    if (p_cells[indices[0]]->num_candidates <=3 && p_cells[indices[1]]->num_candidates <=3 && p_cells[indices[2]]->num_candidates <=3) continue;
                     if(!is_in_list_hidden_triples(p_hidden_triples, *p_counter, p_cells[indices[0]], p_cells[indices[1]], p_cells[indices[2]]))
                     {
                         p_hidden_triples[*p_counter].cell1 = p_cells[indices[0]];
