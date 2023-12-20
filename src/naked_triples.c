@@ -68,27 +68,33 @@ void find_naked_triples(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo_
                                                 p_naked_triples[*p_counter].cell2 = p_cells[n];
                                                 p_naked_triples[*p_counter].cell3 = p_cells[p];
                                                 (*p_counter)++;
+                                                // printf("stored_candidates: %d %d %d\n", stored_candidates[0], stored_candidates[1], stored_candidates[2]);
                                             }
                                             for (int r = 0; r < BOARD_SIZE; r++){
                                                 if ((p_cells[r] != p_cells[m]) && (p_cells[r] != p_cells[n]) && (p_cells[r] != p_cells[p])){
+                                                    // int *candidates_r = get_candidates(p_cells[r]);
+                                                    // for (int s = 0; s < p_cells[r]->num_candidates; s++){
+                                                    //     printf("candidates_r: %d\n", candidates_r[s]);
+                                                    // }
+                                                    // free(candidates_r);
                                                     if (is_candidate(p_cells[r], stored_candidates[0])){
                                                         p_unset_array[*p_unset].cell = p_cells[r];
                                                         p_unset_array[*p_unset].candidate1 = stored_candidates[0];
-                                                        p_unset_array[*p_unset].candidate2 = stored_candidates[1];
-                                                        p_unset_array[*p_unset].candidate3 = stored_candidates[2];
+                                                        p_unset_array[*p_unset].candidate2 = 0;
+                                                        p_unset_array[*p_unset].candidate3 = 0;
                                                         (*p_unset)++;
                                                     }
                                                     if (is_candidate(p_cells[r], stored_candidates[1])){
                                                         p_unset_array[*p_unset].cell = p_cells[r];
-                                                        p_unset_array[*p_unset].candidate1 = stored_candidates[0];
+                                                        p_unset_array[*p_unset].candidate1 = 0;
                                                         p_unset_array[*p_unset].candidate2 = stored_candidates[1];
-                                                        p_unset_array[*p_unset].candidate3 = stored_candidates[2];
+                                                        p_unset_array[*p_unset].candidate3 = 0;
                                                         (*p_unset)++;
                                                     }
                                                     if (is_candidate(p_cells[r], stored_candidates[2])){
                                                         p_unset_array[*p_unset].cell = p_cells[r];
-                                                        p_unset_array[*p_unset].candidate1 = stored_candidates[0];
-                                                        p_unset_array[*p_unset].candidate2 = stored_candidates[1];
+                                                        p_unset_array[*p_unset].candidate1 = 0;
+                                                        p_unset_array[*p_unset].candidate2 = 0;
                                                         p_unset_array[*p_unset].candidate3 = stored_candidates[2];
                                                         (*p_unset)++;
                                                     }
@@ -130,7 +136,11 @@ int naked_triples(SudokuBoard *p_board)
         find_naked_triples(p_board->p_boxes[i], &num_naked_triples, &num_unset, unset_array, naked_triples);
     }
 
+    // for (int i = 0; i < num_naked_triples; i++){
+    //     printf("Location of naked triples: (%d, %d) (%d, %d) (%d, %d)\n", naked_triples[i].cell1->row_index, naked_triples[i].cell1->col_index, naked_triples[i].cell2->row_index, naked_triples[i].cell2->col_index, naked_triples[i].cell3->row_index, naked_triples[i].cell3->col_index);
+    // }
     for (int i = 0; i < num_unset; i++){
+
         if (is_candidate(unset_array[i].cell, unset_array[i].candidate1))
         {
             unset_candidate(unset_array[i].cell, unset_array[i].candidate1);

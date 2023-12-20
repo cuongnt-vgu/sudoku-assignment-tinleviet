@@ -88,5 +88,32 @@
             "num_detects": 3,
             "boards": "soocs8dkdk6408ei6mco8c03g1ck6411eg6k1121c009034484g10g03h8h821l8k80g0581q8p80h96pcge4132g00541r092p00h223209k00hk0462181060911e88a054i4o11g1ei6iu8pav84mkskea6ei6m"
         }
+    },
+    "test011": {
+        "description":"Naked pairs",
+        "board_input": "8gu0oghoko03j8h805e28409h4k4d4j20hr08i118kgs218k41gao81q0e1m81gm20ho41h83i2641gm0k0981h4j0g1ac8k40110k2o0c035aka211q815g05hah81a0hh2210e14ha804105ca921a4ag11a210g",
+        "method": "naked_pairs",
+        "output": {
+            "num_detects": 1,
+            "boards": "8gu0oghoko03j8h805e28409h4k4d4j20hr08i118kgs218k41gao81q0e1m81g220ho41h83i2641g20k0981h4j0g1ac8k40110k2o0c035aka211q815g05hah81a0hh2210e14ha804105ca921a4ag11a210g"
+        }
+    },
+    "test012": {
+        "description":"Naked triples",
+        "board_input": "8gu0oghoko03j8h805e28409h4k4d4j20hr08i118kgs218k41gao81q0e1m81g220ho41h83i2641g20k0981h4j0g1ac8k40110k2o0c035aka211q815g05hah81a0hh2210e14ha804105ca921a4ag11a210g",
+        "method": "naked_triples",
+        "output": {
+            "num_detects": 1,
+            "boards": "8gm0g0hoko03j8h805628409h4k4d4j20hr002118kgs218k41gao81q0e1m81g220ho41h83i2641g20k0981h4j0g1ac8k40110k2o0c035aka211q815g05hah81a0hh2210e14ha804105ca921a4ag11a210g"
+        }
+    },
+    "test013": {
+        "description":"Hidden pairs",
+        "board_input": "4ug4kcs6k2o6218g116m34740972b6ckg1ck6481n4l4n00h440803a00hb012053ag14188e4j4v4linqja9u9i8s440903lg81h01k210kg14088211q9a9q058oac03acpkho419o9gqo11240ho6gaoeca82u8",
+        "method": "hidden_pairs",
+        "output": {
+            "num_detects": 2,
+            "boards": "0ig4kcs6k2o6218g110i34740972b6ckg1ck6481n4l4n00h440803a00hb012053ag14188e4j4v4linqja9u9i8s440903lg81h01k210kg14088211q9a9q058oac03acpkho419o9gi011240ho6gaoeca82i0"
+        }
     }
 }
