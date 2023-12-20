@@ -94,7 +94,7 @@ int hidden_pairs(SudokuBoard *p_board)
         // printf("box: \n");
         find_hidden_pairs(p_board->p_boxes[i], hidden_pairs, &num_hidden_pairs);
     }
-
+    printf("Hidden pairs: %d\n", num_hidden_pairs);
     for (int i = 0; i < num_hidden_pairs; i++)
     {
         // printf("Hidden pairs location: (%d, %d), (%d, %d)\n", hidden_pairs[i].cell1->row_index, hidden_pairs[i].cell1->col_index, hidden_pairs[i].cell2->row_index, hidden_pairs[i].cell2->col_index);

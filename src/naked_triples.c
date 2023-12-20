@@ -136,9 +136,9 @@ int naked_triples(SudokuBoard *p_board)
         find_naked_triples(p_board->p_boxes[i], &num_naked_triples, &num_unset, unset_array, naked_triples);
     }
 
-    // for (int i = 0; i < num_naked_triples; i++){
-    //     printf("Location of naked triples: (%d, %d) (%d, %d) (%d, %d)\n", naked_triples[i].cell1->row_index, naked_triples[i].cell1->col_index, naked_triples[i].cell2->row_index, naked_triples[i].cell2->col_index, naked_triples[i].cell3->row_index, naked_triples[i].cell3->col_index);
-    // }
+    for (int i = 0; i < num_naked_triples; i++){
+        printf("Location of naked triples: (%d, %d) (%d, %d) (%d, %d)\n", naked_triples[i].cell1->row_index, naked_triples[i].cell1->col_index, naked_triples[i].cell2->row_index, naked_triples[i].cell2->col_index, naked_triples[i].cell3->row_index, naked_triples[i].cell3->col_index);
+    }
     for (int i = 0; i < num_unset; i++){
 
         if (is_candidate(unset_array[i].cell, unset_array[i].candidate1))
