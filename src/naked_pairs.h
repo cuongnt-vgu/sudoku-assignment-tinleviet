@@ -1,13 +1,13 @@
 #pragma once
 
 #include "sudoku.h"
-typedef struct {
+typedef struct UnsetInfo_impl {
     Cell *cell;
     int candidate1;
     int candidate2;
 } UnsetInfo;
 
-typedef struct{
+typedef struct NakedPair_impl{
     Cell *cell1;
     Cell *cell2;
 } NakedPair;

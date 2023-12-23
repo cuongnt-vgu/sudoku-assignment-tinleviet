@@ -11,7 +11,7 @@ typedef struct {
     int num_3;
 } HiddenTriples;
 
-int check_cell_in_hidden_triples(int triples[3], Cell* p_cell);
-int check_hidden_triples(Cell **p_cells, int possible_triples[], int *indices);
+bool is_in_list_hidden_triples(HiddenTriples *p_array, int size, Cell *p1, Cell *p2, Cell *p3);
+int is_hidden_triples(Cell **p_cells, int triple_sets[], int *indices);
 void find_hidden_triples(Cell **p_cells, HiddenTriples *p_hidden_triples, int *p_counter);
 int hidden_triples(SudokuBoard *p_board);

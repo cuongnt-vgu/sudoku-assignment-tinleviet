@@ -117,19 +117,13 @@ int hidden_triples(SudokuBoard *p_board)
                 if (is_candidate(p_hidden_triples[i].cell1, j+1)){
                     unset_candidate(p_hidden_triples[i].cell1, j+1);
                 }
-            }     
-            if (j != num_1-1 && j != num_2-1 && j != num_3-1)
-            {
                 if (is_candidate(p_hidden_triples[i].cell2, j+1)){
                     unset_candidate(p_hidden_triples[i].cell2, j+1);
                 }
-            }
-            if (j != num_1-1 && j != num_2-1 && j != num_3-1)
-            {
                 if (is_candidate(p_hidden_triples[i].cell3, j+1)){
                     unset_candidate(p_hidden_triples[i].cell3, j+1);
                 }
-            }       
+            }         
             
         }
     }
