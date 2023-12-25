@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-bool is_in_list_hidden_pairs(HiddenPair *p_array, Cell *p, int *p_counter)
+bool is_in_list_hidden_pairs(HiddenPair *p_array, Cell *p_1, Cell *p_2, int *p_counter)
 {
     for (int i = 0; i < *p_counter; i++)
     {
-        if ((p_array[i].cell1 == p) || (p_array[i].cell2 == p))
+        if ((p_array[i].cell1 == p_1) && (p_array[i].cell2 == p_2))
         {
             return true;
         }
@@ -60,7 +60,7 @@ void find_hidden_pairs(Cell **cells, HiddenPair *p_hidden_pairs, int *p_counter)
                             {
                                 if ((is_candidate(cells[j], p_candidate[a])) && (is_candidate(cells[j], p_candidate[b])))
                                 {
-                                    if (!is_in_list_hidden_pairs(p_hidden_pairs, cells[i], p_counter) && !is_in_list_hidden_pairs(p_hidden_pairs, cells[j], p_counter))
+                                    if (!is_in_list_hidden_pairs(p_hidden_pairs, cells[i], cells[j], p_counter))
                                     {
                                         p_hidden_pairs[*p_counter].cell1 = cells[i];
                                         p_hidden_pairs[*p_counter].cell2 = cells[j];

@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-bool is_in_list_naked_pairs(NakedPair *p_array, Cell *p)
+bool is_in_list_naked_pairs(NakedPair *p_array, Cell *p_1, Cell *p_2)
 {
     for (int i = 0; i < BOARD_SIZE*BOARD_SIZE; i++)
     {
-        if ((p_array[i].cell1 == p) || (p_array[i].cell2 == p))
+        if ((p_array[i].cell1 == p_1) && (p_array[i].cell2 == p_2))
         {
             return true;
         }
@@ -41,7 +41,7 @@ void find_naked_pairs(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo *p
                                     (*p_unset)++;
                                 }
                             }
-                            if (!is_in_list_naked_pairs(p_naked_pairs, p_cells[i]))
+                            if (!is_in_list_naked_pairs(p_naked_pairs, p_cells[i], p_cells[j]))
                             {
                                 p_naked_pairs[*p_counter].cell1 = p_cells[i];
                                 p_naked_pairs[*p_counter].cell2 = p_cells[j];
@@ -71,6 +71,11 @@ int naked_pairs(SudokuBoard *p_board)
         find_naked_pairs(p_board->p_rows[i], &naked_counter, &unset_counter, unset_array, naked_pairs);
         find_naked_pairs(p_board->p_cols[i], &naked_counter, &unset_counter, unset_array, naked_pairs);
         find_naked_pairs(p_board->p_boxes[i], &naked_counter, &unset_counter, unset_array, naked_pairs);
+    }
+
+    for (int i = 0; i < naked_counter; i++)
+    {
+        printf("Location: %d, %d and %d, %d\n", naked_pairs[i].cell1->row_index, naked_pairs[i].cell1->col_index, naked_pairs[i].cell2->row_index, naked_pairs[i].cell2->col_index);
     }
 
     for (int i = 0; i < unset_counter; i++)

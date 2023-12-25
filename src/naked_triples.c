@@ -125,6 +125,7 @@ void find_naked_triples(Cell **p_cells, int *p_counter, int *p_unset, UnsetInfo_
 
 int naked_triples(SudokuBoard *p_board)
 {
+    printf("Naked triples\n");
     UnsetInfo_NakedTriple unset_array[BOARD_SIZE*BOARD_SIZE];
     int num_unset = 0;
     NakedTriple naked_triples[BOARD_SIZE*BOARD_SIZE];
